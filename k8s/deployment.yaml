@@ -1,1 +1,20 @@
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: train-ticket-deployment
+  namespace: train-ticket
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: train-ticket
+  template:
+    metadata:
+      labels:
+        app: train-ticket
+    spec:
+      containers:
+        - name: train-ticket-container
+          image: <IMAGE>
+          ports:
+            - containerPort: 8080
