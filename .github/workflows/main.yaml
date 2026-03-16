@@ -31,12 +31,6 @@ jobs:
       - name:  Find WAR file
         run: echo "WAR_FILE=$(ls board/target/*.war | head -n 1)" >> $GITHUB_ENV
 
-      - name:  Upload WAR artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: war-file
-          path: ${{ env.WAR_FILE }}
-
       
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
@@ -87,13 +81,6 @@ jobs:
           sed -i "s|<IMAGE>|$ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}|g" task-definition.json
           cat task-definition.json > new-task.json
 
-      - name: Deploy to Amazon ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
-        with:
-          task-definition: new-task.json
-          service: ${{ secrets.ECS_SERVICE }}
-          cluster: ${{ secrets.ECS_CLUSTER }}
-          wait-for-service-stability: true
       - name: Install kubectl
         run: |
           curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
