@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: train-ticket-deployment
+  name: Game-deployment
   namespace: train-ticket
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: train-ticket
+      app: my-Game
   template:
     metadata:
       labels:
-        app: train-ticket
+        app: my-Game
     spec:
       containers:
-        - name: train-ticket-container
+        - name:Game-container
           image: <IMAGE>
           ports:
             - containerPort: 8080
