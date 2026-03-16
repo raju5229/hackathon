@@ -32,7 +32,7 @@ jobs:
         run: echo "WAR_FILE=$(ls board/target/*.war | head -n 1)" >> $GITHUB_ENV
 
       - name: Check WAR file
-        run: ls -R board/target
+        run: ls -R board/target/*.war
       
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
