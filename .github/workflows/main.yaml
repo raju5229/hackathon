@@ -28,11 +28,16 @@ jobs:
         working-directory: board
         run: ./mvnw clean package -DskipTests
 
+      - name: Debug - show files
+        run: ls -R
+
       - name: Find WAR file
-        run: echo "WAR_FILE=$(ls board/target/*.war | head -n 1)" >> $GITHUB_ENV
+        run: |
+          WAR_FILE=$(find board/target -name "*.war" | head -n 1)
+          echo "WAR_FILE=$WAR_FILE" >> $GITHUB_ENV
 
       - name: Check WAR file
-        run: ls -R board/target/*.war
+        run: echo "WAR file path is $WAR_FILE"
       
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
