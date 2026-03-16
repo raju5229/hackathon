@@ -1,14 +1,14 @@
-# Use Tomcat with Java 17
-FROM tomcat:10.1-jdk17-temurin
+# Use lightweight Java runtime
+FROM eclipse-temurin:11-jre
 
-# Remove default Tomcat apps
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Set working directory
+WORKDIR /app
 
-# Copy WAR file built by Maven
-COPY board/target/*.war /usr/local/tomcat/webapps/ROOT.war
+# Copy jar built by Maven
+COPY board/target/*.jar app.jar
 
-# Expose application port
+# Expose Spring Boot port
 EXPOSE 8080
 
-# Start Tomcat server
-CMD ["catalina.sh", "run"]
+# Run Spring Boot application
+ENTRYPOINT ["java","-jar","app.jar"]
