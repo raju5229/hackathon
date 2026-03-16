@@ -5,7 +5,7 @@ FROM tomcat:10.1-jdk17-temurin
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy WAR file built by Maven
-COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
+COPY board/target/*.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expose application port
 EXPOSE 8080
